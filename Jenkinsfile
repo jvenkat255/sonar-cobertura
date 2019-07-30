@@ -22,7 +22,7 @@ pipeline {
     
 	    stage('Cobertura') {
 		    steps {
-			    bat "mvn test cobertura"
+			    mvn clean install
 			    
 			    step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml'])
 				
@@ -46,7 +46,7 @@ pipeline {
     steps {
         withSonarQubeEnv('sonarqube_atg') {
             //bat "${scannerHome}/bin/sonar-scanner"
-            bat "mvn sonar:sonar"
+            mvn sonar:sonar
         }
 	    sleep(time:1,unit:"MINUTES")
        
