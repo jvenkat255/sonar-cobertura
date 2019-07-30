@@ -22,7 +22,7 @@ pipeline {
     
 	    stage('Cobertura') {
 		    steps {
-			    bat "gradlew test cobertura"
+			    bat "mvn test cobertura"
 			    
 			    step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/test/*.xml'])
 				
@@ -46,7 +46,7 @@ pipeline {
     steps {
         withSonarQubeEnv('sonarqube_atg') {
             //bat "${scannerHome}/bin/sonar-scanner"
-            bat "gradlew sonarqube"
+            bat "mvn sonar:sonar"
         }
 	    sleep(time:1,unit:"MINUTES")
        
